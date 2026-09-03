@@ -1,10 +1,13 @@
-import speech_recognition as sr
-import pyttsx3
-from datetime import datetime
+try:
+    import speech_recognition as sr
+    import pyttsx3
+    from datetime import datetime
+except ImportError as e:
+    print(f"Error importing modules: {e}. Please ensure all required libraries are installed.")
 
 def speak(text: str):
     engine = pyttsx3.init()
-    engine.setProperty('rate', 220)
+    engine.setProperty('rate', 210)
     engine.say(text)
     engine.runAndWait()
 
@@ -14,7 +17,6 @@ def get_audio() -> str:
         audio = r.listen(source)
         try:
             text = str(r.recognize_google(audio))
-            print(f"You said: {text}")
             return text
         except sr.UnknownValueError:
             pass
